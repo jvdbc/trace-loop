@@ -1,0 +1,22 @@
+name: GitHub Actions Makefile CI
+run-name: ${{ github.actor }} is launching make 🚀
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  GitHub-Actions-Build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+        
+    - name: Run GNUmakefile
+      run: make

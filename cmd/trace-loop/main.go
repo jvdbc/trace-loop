@@ -12,6 +12,7 @@ type traceloop struct {
 	ticker  *time.Ticker
 	message string
 	begin   uint
+	log     *log.Logger
 }
 
 func newTraceloop(message string, frequency time.Duration, begin uint) *traceloop {
@@ -19,6 +20,7 @@ func newTraceloop(message string, frequency time.Duration, begin uint) *traceloo
 		ticker:  time.NewTicker(frequency),
 		message: message,
 		begin:   begin,
+		log:     log.New(os.Stdout, "", log.Default().Flags()),
 	}
 
 	return &tl
@@ -67,7 +69,7 @@ func (tl *traceloop) run() {
 	count := tl.begin
 
 	for range tl.ticker.C {
-		log.Printf("%s: %d", tl.message, count)
+		tl.log.Printf("%s: %d", tl.message, count)
 		count++
 	}
 }
